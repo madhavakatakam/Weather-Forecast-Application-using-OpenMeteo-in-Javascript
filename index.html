@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather App</title>
 </head>
-<body>
-  <h1>Weather Forecast</h1>
 
+<body>
+  <header>
+    <h1>Weather Forecast App Using OpenMeteo API</h1>
+  </header>
+  <div>
+  <h2>Enter City Name:</h2>
   <input type="text" id="cityInput" placeholder="Enter city name">
-  <button onclick="getWeather()">Get Weather</button>
   <button onclick="toggleUnits()">Toggle °C/°F</button>
+  <button onclick="getWeather()">Search</button>
+  <h2>Or</h2>
+  <button>Use Current Location</button>
+  <select></select>
+  </div>
 
   <script src="script.js"></script>
 </body>
+
 </html>
