@@ -27,7 +27,6 @@ async function getCoordinates(city) {
 async function getWeather() {
     const city = document.getElementById("cityInput").value.trim();
     if (!city) {
-        let x = 1;
         alert("Empty field not accepted!");
         return;
     }
@@ -75,3 +74,4 @@ async function getWeather() {
         console.log("Error fetching weather:", error);
     }
 }
+
