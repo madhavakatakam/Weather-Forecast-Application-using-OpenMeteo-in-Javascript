@@ -1,3 +1,10 @@
+let celsius = true;
+
+function toggleUnits(){
+    celsius = !celsius;
+    alert(`Units Switched to ${celsius? "celsius" : "fahrenheit"}`);
+}
+
 async function getCoordinates(city) {
     const cityURL = `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`;
     try {
@@ -27,6 +34,7 @@ async function getCoordinates(city) {
 async function getWeather() {
     const city = document.getElementById("cityInput").value.trim();
     if (!city) {
+        let x = 1;
         alert("Empty field not accepted!");
         return;
     }
@@ -54,7 +62,11 @@ async function getWeather() {
 
         console.log(data);
         console.log(`\nCurrent Weather Data:`);
-        console.log(`Current Temperature: ${data.current_weather.temperature} °C`);
+
+        let temperature = data.current_weather.temperature;
+        let unit = celsius? "°C" : "°F";
+        temperature = celsius? temperature : (temperature*9)/5 + 32;
+        console.log(`Current Temperature: ${temperature} ${unit}`);
         console.log(`Current Wind Speed: ${data.current_weather.windspeed} km/hr`);
         console.log(`Current Humidity is in the range: ${data.daily.relative_humidity_2m_min[0]} % - ${data.daily.relative_humidity_2m_max[0]} %`);
         console.log(`Current Weather Code: ${data.current_weather.weathercode}`);
@@ -74,4 +86,3 @@ async function getWeather() {
         console.log("Error fetching weather:", error);
     }
 }
-
