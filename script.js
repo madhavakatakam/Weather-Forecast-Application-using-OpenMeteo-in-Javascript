@@ -4,7 +4,10 @@ async function getCoordinates(city) {
         const response = await fetch(cityURL);
         const data = await response.json();
 
-
+        if (!data.results || data.results.length === 0) {
+            alert("City not found!");
+            return null;
+        }
 
         console.log(data.results[0]);
         const cityName = data.results[0].name;
@@ -16,7 +19,7 @@ async function getCoordinates(city) {
     }
 
     catch (error) {
-        alert("Incorrect City Name");
+        alert("Incorrect City Name!");
         console.log("Error fetching co-ordinates:", error);
     }
 }
@@ -24,7 +27,8 @@ async function getCoordinates(city) {
 async function getWeather() {
     const city = document.getElementById("cityInput").value.trim();
     if (!city) {
-        alert("Empty field not accepted");
+        let x = 1;
+        alert("Empty field not accepted!");
         return;
     }
 
@@ -44,9 +48,9 @@ async function getWeather() {
         const response = await fetch(weatherURL);
         const data = await response.json();
 
-        if (!data.results || data.results.length === 0) {
-            alert("City not found!");
-            return null;
+        if(!data.current_weather){
+            alert("Weather Data Not Available!");
+            return;
         }
 
         console.log(data);
