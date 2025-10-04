@@ -64,6 +64,11 @@ async function getWeather() {
         console.log(`\nCurrent Weather Data:`);
 
         let temperature = data.current_weather.temperature;
+        
+        if(temperature>40){
+            alert("Extreme Heat Alert!");
+        }
+
         let unit = celsius? "°C" : "°F";
         temperature = celsius? temperature : (temperature*9)/5 + 32;
         console.log(`Current Temperature: ${temperature} ${unit}`);
