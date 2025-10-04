@@ -4,4 +4,4 @@ We use OpenMeteo which is a free and reliable API to fetch weather data. Current
 The webpage will perfectly fetch the city name, latitude and longitude of the city name entered in the input field. User will receive an alert if empty input field is submitted. Also added more features such as "search by current location" button, dropdown list for recent searches.
 The project now displays current weather data and 5-day weather forecast for the given city name in console. Handles all errors that might occur in the flow of the project.
 Included Semantic HTML for better readability and SEO purposes.
-We can now toggle units between Celsius and Fahrenheit for current temperature only.
+We can now toggle units between Celsius and Fahrenheit for current temperature only. Will send an alert for cities with extreme heat (>40°C).
