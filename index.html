@@ -11,15 +11,23 @@
   <header>
     <h1>Weather Forecast App Using OpenMeteo API</h1>
   </header>
-  <div>
-  <h2>Enter City Name:</h2>
-  <input type="text" id="cityInput" placeholder="Enter city name">
-  <button onclick="toggleUnits()">Toggle °C/°F</button>
-  <button onclick="getWeather()">Search</button>
-  <h2>Or</h2>
-  <button>Use Current Location</button>
-  <select></select>
-  </div>
+  <main>
+    <section>
+      <h2>Enter City Name:</h2>
+      <form onsubmit="getWeather(); return false;">
+        <input type="text" id="cityInput" placeholder="Enter city name">
+        <button type="button" onclick="toggleUnits()">Toggle °C/°F</button>
+        <button type="submit">Search</button>
+        <h2>Or</h2>
+        <button type="button">Use Current Location</button>
+        <select></select>
+      </form>
+    </section>
+
+    <section id="weatherforecast">
+
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
