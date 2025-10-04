@@ -57,8 +57,8 @@ async function getWeather() {
         console.log(`\nCurrent Weather Data:`);
         console.log(`Current Temperature: ${data.current_weather.temperature} °C`);
         console.log(`Current Wind Speed: ${data.current_weather.windspeed} km/hr`);
-        console.log(`Current Weather Code: ${data.current_weather.weathercode}`);
         console.log(`Current Humidity is in the range: ${data.daily.relative_humidity_2m_min[0]} % - ${data.daily.relative_humidity_2m_max[0]} %`);
+        console.log(`Current Weather Code: ${data.current_weather.weathercode}`);
 
         console.log(`\n5-day Weather Forecast:`);
         const days = Math.min(5, data.daily.time.length);
