@@ -40,13 +40,15 @@ async function getWeather(currentValue = false) {
     let country;
 
     if (currentValue) {
-        if (!navigator.geolocation) {
-            alert("Geolocation not supported!");
-            return;
-        }
         try {
             console.log("Working");
-            return;
+            const position = await new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(resolve, reject);
+            });
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
+            console.log("Latitude: ", latitude);
+            console.log("Longitude: ", longitude);
         }
         catch (error) {
             console.log("Error Fetching Current Location: ", error);
