@@ -1,8 +1,9 @@
 let celsius = true;
 
-function toggleUnits(){
+function toggleUnits() {
     celsius = !celsius;
-    alert(`Units Switched to ${celsius? "celsius" : "fahrenheit"}`);
+    alert(`Units Switched to ${celsius ? "celsius" : "fahrenheit"}`);
+    document.getElementById("toggle").textContent = celsius ? "°F" : "°C";
 }
 
 async function getCoordinates(city) {
@@ -31,46 +32,67 @@ async function getCoordinates(city) {
     }
 }
 
-async function getWeather() {
-    const city = document.getElementById("cityInput").value.trim();
-    if (!city) {
-        let x = 1;
-        alert("Empty field not accepted!");
-        return;
+async function getWeather(currentValue = false) {
+
+    if (currentValue) {
+        if (!navigator.geolocation) {
+            alert("Geolocation not supported!");
+            return;
+        }
+        try {
+            console.log("Working");
+            return;
+        }
+        catch (error) {
+            console.log("Error Fetching Current Location: ", error);
+            return;
+        }
+    }
+    else {
+        const city = document.getElementById("cityInput").value.trim();
+        if (!city) {
+            alert("Empty field not accepted!");
+            return;
+        }
+
+        const coordinates = await getCoordinates(city);
+        if (!coordinates) return;
+        else {
+
+            const latitude = coordinates.latitude;
+            const longitude = coordinates.longitude;
+            const cityName = coordinates.cityName;
+            const country = coordinates.country;
+            console.log(coordinates);
+            console.log(coordinates.cityName);
+            console.log(coordinates.country);
+            console.log(coordinates.latitude);
+            console.log(coordinates.longitude);
+        }
     }
 
-    const coordinates = await getCoordinates(city);
-    if (!coordinates)
-        return;
-
-    console.log(coordinates);
-    console.log(coordinates.cityName);
-    console.log(coordinates.country);
-    console.log(coordinates.latitude);
-    console.log(coordinates.longitude);
-
-    const weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,relative_humidity_2m_max,relative_humidity_2m_min,windspeed_10m_max,weathercode&timezone=auto`;
+    const weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,relative_humidity_2m_max,relative_humidity_2m_min,windspeed_10m_max,weathercode&timezone=auto`;
 
     try {
         const response = await fetch(weatherURL);
         const data = await response.json();
 
-        if(!data.current_weather){
+        if (!data.current_weather) {
             alert("Weather Data Not Available!");
             return;
         }
 
         console.log(data);
-        console.log(`\nCurrent Weather Data:`);
+        console.log(`\nCurrent Weather Data for ${cityName}, ${country}:`);
 
         let temperature = data.current_weather.temperature;
-        
-        if(temperature>40){
+
+        if (temperature > 40) {
             alert("Extreme Heat Alert!");
         }
 
-        let unit = celsius? "°C" : "°F";
-        temperature = celsius? temperature : (temperature*9)/5 + 32;
+        let unit = celsius ? "°C" : "°F";
+        temperature = celsius ? temperature : (temperature * 9) / 5 + 32;
         console.log(`Current Temperature: ${temperature} ${unit}`);
         console.log(`Current Wind Speed: ${data.current_weather.windspeed} km/hr`);
         console.log(`Current Humidity is in the range: ${data.daily.relative_humidity_2m_min[0]} % - ${data.daily.relative_humidity_2m_max[0]} %`);
