@@ -18,11 +18,11 @@ async function getCoordinates(city) {
         }
 
         console.log(data.results[0]);
-        const cityName = data.results[0].name;
-        const latitude = data.results[0].latitude;
-        const longitude = data.results[0].longitude;
-        const country = data.results[0].country;
-        const coordinates = { cityName, country, latitude, longitude };
+        let cityName = data.results[0].name;
+        let latitude = data.results[0].latitude;
+        let longitude = data.results[0].longitude;
+        let country = data.results[0].country;
+        let coordinates = { cityName, country, latitude, longitude };
         return coordinates;
     }
 
@@ -33,6 +33,11 @@ async function getCoordinates(city) {
 }
 
 async function getWeather(currentValue = false) {
+
+    let latitude;
+    let longitude;
+    let cityName;
+    let country;
 
     if (currentValue) {
         if (!navigator.geolocation) {
@@ -48,6 +53,7 @@ async function getWeather(currentValue = false) {
             return;
         }
     }
+
     else {
         const city = document.getElementById("cityInput").value.trim();
         if (!city) {
@@ -59,10 +65,10 @@ async function getWeather(currentValue = false) {
         if (!coordinates) return;
         else {
 
-            const latitude = coordinates.latitude;
-            const longitude = coordinates.longitude;
-            const cityName = coordinates.cityName;
-            const country = coordinates.country;
+            latitude = coordinates.latitude;
+            longitude = coordinates.longitude;
+            cityName = coordinates.cityName;
+            country = coordinates.country;
             console.log(coordinates);
             console.log(coordinates.cityName);
             console.log(coordinates.country);
