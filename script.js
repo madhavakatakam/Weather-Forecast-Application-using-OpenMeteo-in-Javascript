@@ -25,7 +25,7 @@ async function getCoordinates(city) {
         return { cityName, country, latitude, longitude };
     } catch (error) {
         alert("Incorrect City Name!");
-        console.error("Error fetching coordinates:", error);
+        console.log("Error fetching coordinates:", error);
     }
 }
 
@@ -54,7 +54,7 @@ async function getWeather(currentValue = false) {
             console.log(`City: ${cityName}`);
             console.log(`Country: ${country}`);
         } catch (error) {
-            console.error("Error fetching location data:", error);
+            console.log("Error fetching location data:", error);
             return;
         }
     } else {
@@ -108,13 +108,14 @@ async function getWeather(currentValue = false) {
         for (let i = 0; i < days; i++) {
             console.log(`\nDate: ${data.daily.time[i]}`);
             console.log(`Temperature: ${data.daily.temperature_2m_min[i]} °C - ${data.daily.temperature_2m_max[i]} °C`);
-            console.log(`Humidity: ${data.daily.relative_humidity_2m_min[i]}% - ${data.daily.relative_humidity_2m_max[i]}%`);
+            console.log(`Humidity: ${data.daily.relative_humidity_2m_min[i]} % - ${data.daily.relative_humidity_2m_max[i]} %`);
             console.log(`Max Windspeed: ${data.daily.windspeed_10m_max[i]} km/hr`);
             console.log(`Weather Code: ${data.daily.weathercode[i]}`);
         }
 
         console.log("\n");
     } catch (error) {
-        console.error("Error fetching weather:", error);
+        console.log("Error fetching weather:", error);
     }
 }
+
