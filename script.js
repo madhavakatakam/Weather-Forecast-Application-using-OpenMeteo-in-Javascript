@@ -84,41 +84,84 @@ async function getWeather(currentValue = false) {
 
         const currentp1 = document.createElement("p");
         const currentp2 = document.createElement("p");
+
+        currentp1.classList.add(
+            "bg-amber-100",
+            "border",
+            "border-amber-300",
+            "rounded-lg",
+            "p-4",
+            "text-teal-900",
+            "shadow",
+            "space-y-1",
+            "transform",
+            "hover:scale-105",
+            "duration-300"
+        );
+
+        currentp2.classList.add(
+            "bg-teal-50",
+            "border",
+            "border-teal-300",
+            "rounded-lg",
+            "p-4",
+            "text-teal-900",
+            "shadow-md",
+            "space-y-1",
+            "transform",
+            "hover:scale-105",
+            "duration-300"
+        );
+
+        currentp1.innerHTML = `
+  <h3 class="text-xl font-semibold text-sky-900 mb-2">Location Details</h3>
+  <p><strong>Latitude:</strong> ${latitude}</p>
+  <p><strong>Longitude:</strong> ${longitude}</p>
+  <p><strong>City:</strong> ${cityName}</p>
+  <p><strong>Country:</strong> ${country}</p>
+`;
+
+        let temperature = data.current_weather.temperature;
+        const unit = celsius ? "°C" : "°F";
+        temperature = celsius ? temperature : (temperature * 9) / 5 + 32;
+
+        currentp2.innerHTML = `
+  <h3 class="text-xl font-semibold text-sky-900 mb-2">Current Weather</h3>
+  <p><strong>Temperature:</strong> ${temperature} ${unit}</p>
+  <p><strong>Wind Speed:</strong> ${data.current_weather.windspeed} km/hr</p>
+  <p><strong>Humidity:</strong> ${data.daily.relative_humidity_2m_min[0]}% - ${data.daily.relative_humidity_2m_max[0]}%</p>
+  <p><strong>Weather Code:</strong> ${data.current_weather.weathercode}</p>
+`;
+
         currentdiv.appendChild(currentp1);
         currentdiv.appendChild(currentp2);
 
-        let temperature = data.current_weather.temperature;
         if (temperature > 40) {
             alert("Extreme Heat Alert!");
         }
 
-        const unit = celsius ? "°C" : "°F";
-        temperature = celsius ? temperature : (temperature * 9) / 5 + 32;
-
-        currentp1.innerHTML = `Entered input: </br> latitude:${latitude} </br> longitude:${longitude} </br>  City Name:${cityName} </br> Country:${country}`;
-        currentp2.innerHTML = `Current Weather Data for ${cityName}, ${country}: </br> Current Temperature: ${temperature} ${unit} </br>
-        Current Wind Speed: ${data.current_weather.windspeed} km/hr </br>
-        Current Humidity: ${data.daily.relative_humidity_2m_min[0]} % - ${data.daily.relative_humidity_2m_max[0]} % </br>
-        Current Weather Code: ${data.current_weather.weathercode} </br>`;
-
-        const nextp = document.createElement("p");
-        nextdiv.appendChild(nextp);
-
-        nextp.innerHTML = `5-day Weather Forecast: </br>`;
         const days = Math.min(5, data.daily.time.length);
         const P = [];
 
-        for (let i = 0; i < days; i++) {
-            const p = document.createElement("p");
-            p.innerHTML = `Date: ${data.daily.time[i]} </br>
-            Temperature: ${data.daily.temperature_2m_min[i]} °C - ${data.daily.temperature_2m_max[i]} °C </br>
-            Humidity: ${data.daily.relative_humidity_2m_min[i]} % - ${data.daily.relative_humidity_2m_max[i]} % </br>
-            Max Windspeed: ${data.daily.windspeed_10m_max[i]} km/hr </br>
-            Weather Code: ${data.daily.weathercode[i]} </br>`;
+       for (let i = 0; i < days; i++) {
+    const card = document.createElement("div");
+    card.classList.add(
+        "bg-cyan-50", "border", "border-cyan-300", "rounded-lg",
+        "p-4", "text-emerald-900", "shadow",
+        "hover:shadow-md", "transition", "duration-200"
+    );
 
-            P[i] = p;
-            nextdiv.appendChild(p);
-        }
+    card.innerHTML = `
+        <h3 class="text-lg font-semibold text-sky-900 mb-2 text-center">${data.daily.time[i]}</h3>
+        <p><strong>Temp:</strong> ${data.daily.temperature_2m_min[i]}°C - ${data.daily.temperature_2m_max[i]}°C</p>
+        <p><strong>Humidity:</strong> ${data.daily.relative_humidity_2m_min[i]}% - ${data.daily.relative_humidity_2m_max[i]}%</p>
+        <p><strong>Wind:</strong> ${data.daily.windspeed_10m_max[i]} km/hr</p>
+        <p><strong>Code:</strong> ${data.daily.weathercode[i]}</p>
+    `;
+
+    nextdiv.appendChild(card);
+}
+
 
         console.log("\n");
         return;
