@@ -13,17 +13,20 @@
         <h1 class="text-3xl font-bold text-teal-800 text-center">Weather Forecast App Using OpenMeteo API</h1>
     </header>
     <main class="flex flex-col gap-4 p-4">
-        <div class="flex justify-around gap-4">
+        <div class="flex flex-wrap justify-around gap-4">
             <section
-                class="flex flex-col border border-cyan-500 p-4 pb-6 h-auto space-y-4 w-1/2 bg-cyan-200 rounded-lg shadow-md">
+                class="flex flex-wrap flex-col border border-cyan-500 p-4 pb-6 h-auto space-y-4 w-[48%] bg-cyan-200 rounded-lg shadow-md">
+
                 <h2 class="text-2xl text-sky-900 font-semibold">Enter City Name:</h2>
+
                 <form onsubmit="getWeather(); return false;" class="flex flex-col gap-4">
-                    <fieldset class="flex items-center gap-2">
+
+                    <fieldset class="flex flex-wrap items-center gap-x-2 gap-y-3">
                         <input
-                            class="flex-1 border border-amber-300 rounded-xl bg-amber-100 text-emerald-900 px-3 py-2 focus:outline-none focus:border-amber-500"
+                            class="border border-amber-300 rounded-xl bg-amber-100 text-emerald-900 px-3 py-2 w-[65%] min-w-[180px] focus:outline-none focus:border-amber-500"
                             type="text" id="cityInput" placeholder="Enter city name">
                         <button
-                            class="border border-teal-700 rounded-lg bg-teal-600 hover:bg-teal-700 transform hover:scale-120 duration-300 text-amber-50 text-sm font-medium px-3 py-1 transition"
+                            class="border border-teal-700 rounded-lg bg-teal-600 hover:bg-teal-700 transform hover:scale-105 duration-300 text-amber-50 text-sm font-medium px-3 py-1 transition"
                             type="button" onclick="toggleUnits()" id="toggle">
                             °C/°F
                         </button>
@@ -46,28 +49,38 @@
                     <select
                         class="w-full border border-amber-300 rounded-xl bg-amber-100 text-emerald-900 px-3 py-2 transform hover:scale-105 duration-300 focus:outline-none focus:border-amber-500">
                     </select>
+
                 </form>
             </section>
 
 
 
 
+
             <section id="currentweatherforecast"
-                class="flex flex-col items-center justify-center border border-cyan-500 rounded-lg bg-cyan-200 p-4 shadow-md w-1/2">
+                class="flex flex-col items-center justify-center border border-cyan-500 rounded-lg bg-cyan-200 p-4 shadow-md w-[48%]">
                 <h2 class="text-2xl font-semibold text-sky-900 mb-3">Current Weather</h2>
-                <div id="currentweather" class="text-teal-900 text-lg w-full flex flex-col md:flex-row gap-4"></div>
+                <div id="currentweather"
+                    class="text-teal-900 text-lg w-full flex flex-row flex-wrap justify-center items-center gap-4">
+                </div>
             </section>
 
 
         </div>
-        <section id="5-dayweatherforecast" class="border border-black gap-4 p-4">
-            <div id="5-dayweather"></div>
+        <section id="5-dayweatherforecast"
+            class="flex flex-col items-center justify-center border border-cyan-500 bg-cyan-100 rounded-lg shadow-md gap-4 p-4">
+            <h2 class="text-2xl font-semibold mb-3">5-day Weather Forecast</h2>
+            <div id="5-dayweather" class="flex flex-row flex-wrap justify-around gap-4 p-2 w-full"></div>
         </section>
     </main>
 
     <script src="script.js"></script>
+    <footer class="text-center text-sm text-gray-600 mt-6">
+        Data provided by <a href="https://open-meteo.com/" target="_blank"
+            class="text-blue-600 underline">Open-Meteo</a> and <a href="https://nominatim.org/" target="_blank"
+            class="text-blue-600 underline">OpenStreetMap</a>.
+    </footer>
+
 </body>
 
 </html>
-
-
