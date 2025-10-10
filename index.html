@@ -9,11 +9,11 @@
 </head>
 
 <body class="bg-cyan-100">
-    <header class="flex flex-col items-center justify-center p-2 gap-4 border border-black">
-        <h1 class="text-3xl text-green-500">Weather Forecast App Using OpenMeteo API</h1>
+    <header class="flex flex-col items-center justify-center p-4 bg-cyan-300 border-b border-cyan-500">
+        <h1 class="text-3xl font-bold text-teal-800 text-center">Weather Forecast App Using OpenMeteo API</h1>
     </header>
     <main class="flex flex-col gap-4 p-4">
-        <div class="flex justify-around gap-4 border border-red-500">
+        <div class="flex justify-around gap-4">
             <section
                 class="flex flex-col border border-cyan-500 p-4 pb-6 h-auto space-y-4 w-1/2 bg-cyan-200 rounded-lg shadow-md">
                 <h2 class="text-2xl text-sky-900 font-semibold">Enter City Name:</h2>
@@ -23,14 +23,14 @@
                             class="flex-1 border border-amber-300 rounded-xl bg-amber-100 text-emerald-900 px-3 py-2 focus:outline-none focus:border-amber-500"
                             type="text" id="cityInput" placeholder="Enter city name">
                         <button
-                            class="border border-teal-700 rounded-lg bg-teal-600 hover:bg-teal-700 text-amber-50 text-sm font-medium px-3 py-1 transition"
+                            class="border border-teal-700 rounded-lg bg-teal-600 hover:bg-teal-700 transform hover:scale-120 duration-300 text-amber-50 text-sm font-medium px-3 py-1 transition"
                             type="button" onclick="toggleUnits()" id="toggle">
                             °C/°F
                         </button>
                     </fieldset>
 
                     <button
-                        class="rounded-xl bg-teal-600 hover:bg-teal-700 text-amber-50 font-medium px-4 py-2 transition"
+                        class="rounded-xl bg-teal-600 hover:bg-teal-700 transform hover:scale-105 duration-300 text-amber-50 font-medium px-4 py-2 transition"
                         type="submit">
                         Search
                     </button>
@@ -38,7 +38,7 @@
                     <h2 class="text-lg text-teal-800 font-medium text-center">Or</h2>
 
                     <button
-                        class="rounded-xl bg-amber-500 hover:bg-amber-600 text-emerald-900 font-semibold px-4 py-2 transition"
+                        class="rounded-xl bg-amber-500 hover:bg-amber-600 transform hover:scale-105 duration-300 text-emerald-900 font-semibold px-4 py-2 transition"
                         type="button" onclick="getWeather(true)">
                         Use Current Location
                     </button>
@@ -52,9 +52,13 @@
 
 
 
-            <section id="currentweatherforecast" class="flex border border-black">
-                <div id="currentweather"></div>
+            <section id="currentweatherforecast"
+                class="flex flex-col items-center justify-center border border-cyan-500 rounded-lg bg-cyan-200 p-4 shadow-md w-1/2">
+                <h2 class="text-2xl font-semibold text-sky-900 mb-3">Current Weather</h2>
+                <div id="currentweather" class="text-teal-900 text-lg space-y-2"></div>
             </section>
+
+
         </div>
         <section id="5-dayweatherforecast" class="border border-black gap-4 p-4">
             <div id="5-dayweather"></div>
