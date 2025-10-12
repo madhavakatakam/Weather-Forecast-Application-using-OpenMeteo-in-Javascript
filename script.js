@@ -31,6 +31,38 @@ async function getCoordinates(city) {
 
 async function getWeather(currentValue = false) {
     let latitude, longitude, cityName, country;
+    const weatherDescriptions = {
+        0: "Clear sky ☀️",
+        1: "Mainly clear 🌤️",
+        2: "Partly cloudy ⛅",
+        3: "Overcast ☁️",
+        45: "Fog 🌫️",
+        48: "Depositing rime fog 🌫️",
+        51: "Light drizzle 🌦️",
+        53: "Moderate drizzle 🌧️",
+        55: "Dense drizzle 🌧️",
+        56: "Light freezing drizzle ❄️🌧️",
+        57: "Dense freezing drizzle ❄️🌧️",
+        61: "Slight rain 🌦️",
+        63: "Moderate rain 🌧️",
+        65: "Heavy rain 🌧️🌧️",
+        66: "Light freezing rain ❄️🌧️",
+        67: "Heavy freezing rain ❄️🌧️",
+        71: "Slight snow fall ❄️",
+        73: "Moderate snow fall ❄️",
+        75: "Heavy snow fall ❄️❄️",
+        77: "Snow grains ❄️",
+        80: "Slight rain showers 🌦️",
+        81: "Moderate rain showers 🌧️",
+        82: "Violent rain showers ⛈️🌧️",
+        85: "Slight snow showers ❄️🌨️",
+        86: "Heavy snow showers ❄️🌨️",
+        95: "Thunderstorm ⛈️",
+        96: "Thunderstorm with slight hail ⛈️🌩️",
+        99: "Thunderstorm with heavy hail 🌩️🌪️"
+    };
+
+
 
     if (currentValue) {
         try {
@@ -113,6 +145,9 @@ async function getWeather(currentValue = false) {
             "duration-300"
         );
 
+        const code = data.current_weather.weathercode;
+        const desc = weatherDescriptions[code] || "Unknown";
+
         currentp1.innerHTML = `
   <h3 class="text-xl font-semibold text-sky-900 mb-2">Location Details</h3>
   <p><strong>Latitude:</strong> ${latitude}</p>
@@ -130,7 +165,7 @@ async function getWeather(currentValue = false) {
   <p><strong>Temperature:</strong> ${temperature} ${unit}</p>
   <p><strong>Wind Speed:</strong> ${data.current_weather.windspeed} km/hr</p>
   <p><strong>Humidity:</strong> ${data.daily.relative_humidity_2m_min[0]}% - ${data.daily.relative_humidity_2m_max[0]}%</p>
-  <p><strong>Weather Code:</strong> ${data.current_weather.weathercode}</p>
+  <p><strong>Condition:</strong> ${desc}</p>
 `;
 
         currentdiv.appendChild(currentp1);
@@ -143,24 +178,29 @@ async function getWeather(currentValue = false) {
         const days = Math.min(5, data.daily.time.length);
         const P = [];
 
-       for (let i = 0; i < days; i++) {
-    const card = document.createElement("div");
-    card.classList.add(
-        "bg-cyan-50", "border", "border-cyan-300", "rounded-lg",
-        "p-4", "text-emerald-900", "shadow",
-        "hover:shadow-md", "transition", "duration-200"
-    );
+        for (let i = 0; i < days; i++) {
+            let code = data.daily.weathercode[i];
+            let desc = weatherDescriptions[code] || "Unknown";
 
-    card.innerHTML = `
+            const card = document.createElement("div");
+            card.classList.add(
+                "bg-cyan-50", "border", "border-cyan-300", "rounded-lg",
+                "p-4", "text-emerald-900", "shadow",
+                "hover:shadow-md", "transition", "transform",
+                "hover:scale-105", "duration-300"
+            );
+
+            card.innerHTML = `
         <h3 class="text-lg font-semibold text-sky-900 mb-2 text-center">${data.daily.time[i]}</h3>
         <p><strong>Temp:</strong> ${data.daily.temperature_2m_min[i]}°C - ${data.daily.temperature_2m_max[i]}°C</p>
         <p><strong>Humidity:</strong> ${data.daily.relative_humidity_2m_min[i]}% - ${data.daily.relative_humidity_2m_max[i]}%</p>
         <p><strong>Wind:</strong> ${data.daily.windspeed_10m_max[i]} km/hr</p>
-        <p><strong>Code:</strong> ${data.daily.weathercode[i]}</p>
+        <p><strong>Condition:</strong> ${desc}</p>
     `;
+            console.log(data.daily.weathercode[i]);
 
-    nextdiv.appendChild(card);
-}
+            nextdiv.appendChild(card);
+        }
 
 
         console.log("\n");
