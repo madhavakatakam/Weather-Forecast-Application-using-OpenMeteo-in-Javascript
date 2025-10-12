@@ -171,7 +171,7 @@ async function getWeather(currentValue = false) {
         currentdiv.appendChild(currentp1);
         currentdiv.appendChild(currentp2);
 
-        if (temperature > 40) {
+        if (data.current_weather.temperature > 40) {
             alert("Extreme Heat Alert!");
         }
 
@@ -209,3 +209,4 @@ async function getWeather(currentValue = false) {
         console.log("Error fetching weather:", error);
     }
 }
+
