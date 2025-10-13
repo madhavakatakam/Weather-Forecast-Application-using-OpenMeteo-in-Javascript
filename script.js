@@ -32,6 +32,54 @@ async function getCoordinates(city) {
     }
 }
 
+function saveCityToLocalStorage(cityName) {
+    if (!cityName) return;
+    let savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
+
+    if (!savedCities.includes(cityName)) {
+        savedCities.push(cityName);
+        localStorage.setItem("savedCities", JSON.stringify(savedCities));
+        updateDropdown();
+    }
+}
+
+function updateDropdown() {
+    const select = document.querySelector("select");
+    select.innerHTML = "";
+
+    const savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
+
+    if (savedCities.length === 0) {
+        const opt = document.createElement("option");
+        opt.textContent = "No recent cities";
+        opt.disabled = true;
+        opt.selected = true;
+        select.appendChild(opt);
+        return;
+    }
+
+    const defaultOpt = document.createElement("option");
+    defaultOpt.textContent = "Select a saved city";
+    defaultOpt.disabled = true;
+    defaultOpt.selected = true;
+    select.appendChild(defaultOpt);
+
+    savedCities.forEach(city => {
+        const opt = document.createElement("option");
+        opt.value = city;
+        opt.textContent = city;
+        select.appendChild(opt);
+    });
+
+    select.onchange = async () => {
+        const city = select.value;
+        if (city && city !== "Select a saved city") {
+            document.getElementById("cityInput").value = city;
+            await getWeather(false);
+        }
+    };
+}
+
 async function getWeather(currentValue = false) {
     let latitude, longitude, cityName, country;
 
@@ -64,11 +112,10 @@ async function getWeather(currentValue = false) {
             country = data.address.country || "Unknown country";
 
         } catch (error) {
-            showError("currentweather", "Cannot access your location. Please check your internet connection, enable location access in your browser or enter a city name manually.");
+            showError("currentweather", "Cannot access your location. Please enable location access or enter a city name manually.");
             return;
         }
-    } 
-    else {
+    } else {
         const city = document.getElementById("cityInput").value.trim();
         if (!city) {
             alert("Please enter a valid city name before searching.");
@@ -77,7 +124,6 @@ async function getWeather(currentValue = false) {
 
         const coordinates = await getCoordinates(city);
         if (!coordinates) return;
-
         ({ latitude, longitude, cityName, country } = coordinates);
     }
 
@@ -88,7 +134,7 @@ async function getWeather(currentValue = false) {
         const data = await response.json();
 
         if (!data || !data.current_weather) {
-            showError("currentweather", "Current Weather data is not available for this location. Please try a different city.");
+            showError("currentweather", "Current Weather data is not available for this location.");
             showError("5-dayweather", "5-Day Forecast is not available for this location.");
             return;
         }
@@ -135,12 +181,9 @@ async function getWeather(currentValue = false) {
 
         const days = Math.min(5, data.daily.time.length);
         for (let i = 0; i < days; i++) {
-            const code = data.daily.weathercode[i];
-            const desc = weatherDescriptions[code] || "Unknown";
-
+            const desc = weatherDescriptions[data.daily.weathercode[i]] || "Unknown";
             const card = document.createElement("div");
             card.classList.add("bg-cyan-50", "border", "border-cyan-300", "rounded-lg", "p-4", "text-emerald-900", "shadow", "hover:shadow-md", "transition", "transform", "hover:scale-105", "duration-300");
-
             card.innerHTML = `
                 <h3 class="text-lg font-semibold text-sky-900 mb-2 text-center">${data.daily.time[i]}</h3>
                 <p><strong>Temp:</strong> ${data.daily.temperature_2m_min[i]}°C - ${data.daily.temperature_2m_max[i]}°C</p>
@@ -150,9 +193,12 @@ async function getWeather(currentValue = false) {
             `;
             nextdiv.appendChild(card);
         }
-    } 
-    catch (error) {
-        showError("currentweather", "Unable to load current weather data. Please check your internet connection and try again.");
+
+        if (!currentValue && cityName) saveCityToLocalStorage(cityName);
+    } catch (error) {
+        showError("currentweather", "Unable to load current weather data. Please check your internet connection.");
         showError("5-dayweather", "Unable to load 5-day forecast data.");
     }
 }
+
+document.addEventListener("DOMContentLoaded", updateDropdown);
