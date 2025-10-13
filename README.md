@@ -69,8 +69,16 @@ npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch
 
 Simply open the index.html file in your browser.
 
-Project Structure:
-<pre> ```plaintext Weather-Forecast-Application-using-OpenMeteo-in-Javascript/ │ ├── index.html # Main webpage ├── script.js # Core JavaScript logic ├── src/ │ ├── input.css # Tailwind input file │ └── output.css # Generated Tailwind output file ├── README.md # Project documentation ``` </pre>
+**Project Structure:**
+Weather-Forecast-Application-using-OpenMeteo-in-Javascript/
+│
+├── `index.html`          # Main webpage
+├── `script.js`           # Core JavaScript logic
+├── `src`
+│   ├── `input.css`       # Tailwind input file
+│   └── `output.css`      # Generated Tailwind output file
+├── `README.md`           # Project documentation
+
 
 Key JavaScript Functions:
 
