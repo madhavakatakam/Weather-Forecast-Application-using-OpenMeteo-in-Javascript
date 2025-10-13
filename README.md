@@ -1,20 +1,97 @@
-# Weather-Forecast-Application-using-OpenMeteo-in-Javascript
-Weather Forecast Application provides real time current weather data and a 5-day weather forecast.
-We use OpenMeteo which is a free and reliable API to fetch weather data. Currently can fetch latitude and longitude of city name entered in the input field. This data is crucial to fetch weather data. No CSS styling yet.
-The webpage will perfectly fetch the city name, latitude and longitude of the city name entered in the input field. User will receive an alert if empty input field is submitted. Also added more features such as "search by current location" button, dropdown list for recent searches(all these are not fully functional yet).
-The project now displays current weather data and 5-day weather forecast for the given city name in console. Handles all errors that might occur in the flow of the project.
-Included Semantic HTML for better readability and SEO purposes.
-We can now toggle units between Celsius and Fahrenheit for current temperature only. Will send an alert for cities with extreme heat (>40°C).
-The toggle button now updates its inner text accordingly.
-Added Geo-Location to fetch location data of user when search by location button is clicked(not fully functional yet). Flow of the project is updated with proper input validation and error handling.
-The Geo-Location feature now works perfectly. When you click the “Use Current Location” button, it gets your latitude and longitude using the Geolocation API and finds your city and country from the OpenStreetMap API.
-Currently, the webpage perfectly fetches current and 5-day weather data and displays it to the user on the webpage in plain text.
-Added CSS Styling to Header section, current weather section and form elements of the webpage, added borders to help visualize and manage the layout of the webpage.
-Included input.css and output.css files to build the Tailwind CSS for the webpage. The command to run the project is :
+Weather Forecast Application using OpenMeteo API (JavaScript)
+
+A responsive Weather Forecast Web App built with HTML, Tailwind CSS, and JavaScript. This project provides real-time weather data and a 5-day forecast using the Open-Meteo API. Users can get weather data by city name or use their current location. Previously searched cities are saved locally and persist even after refreshing the webpage.
+
+Features:
+
+Real-Time Weather Data:
+Displays weather data that includes current temperature, humidity, wind speed, and weather conditions.
+Shows both current and 5-day forecasts using the Open-Meteo API.
+
+Search by City Name:
+Fetches latitude and longitude from the Open-Meteo Geocoding API.
+Displays city name, coordinates, and country along with weather data.
+
+Use Current Location:
+Uses the Geolocation API to detect your location automatically.
+Reverse-geocodes your coordinates via the OpenStreetMap API to display city/country.
+
+Celsius / Fahrenheit Toggle:
+Easily switches temperature units between °C and °F.
+Toggle button updates its label dynamically.
+
+extreme Heat Alert:
+Displays a JS alert message when current temperature exceeds 40 °C (Celsius only).
+
+Persistent Recent Searches:
+Recently searched cities are saved in localStorage.
+A dropdown lets users quickly reselect saved cities (persists across sessions).
+
+Robust Error Handling:
+Handles invalid input, missing data, and network issues gracefully.
+Displays friendly UI error messages instead of console logs.
+
+Tools and Technologies used:
+Component	  Technology
+Frontend	: HTML5, Tailwind CSS, JavaScript (ES6)
+APIs Used	: Open-Meteo API (Weather & Geocoding), OpenStreetMap (Reverse Geocoding)
+Storage   :	Local Storage (for saving recent cities)
+
+How It Works:
+
+User Input:
+Enter a city name or click “Use Current Location.”
+
+Get Coordinates:
+Fetch latitude and longitude from Open-Meteo Geocoding API or Geolocation API.
+
+Fetch Weather:
+Retrieve current and daily weather data from Open-Meteo Forecast API.
+
+Display Results:
+Current weather and 5-day forecast displayed in separate styled sections.
+
+Save City:
+City name stored in local storage for easy future access.
+
+Setup Instructions:
+1. Clone the Repository
+git clone https://github.com/<your-username>/Weather-Forecast-Application-using-OpenMeteo-in-Javascript.git
+cd Weather-Forecast-Application-using-OpenMeteo-in-Javascript
+
+2. Install Tailwind CSS (CLI)
+
+Make sure you have Node.js installed.
+Run the Tailwind build command to generate your CSS output file:
 npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch
-Removed all console statements. Now the weather data is displayed perfectly on the webpage and fixed the bug where paragraphs are stacked everytime the search button is clicked.
-Added CSS styling and hover effects to form elements, and updated the layout and borders of the form section. Buttons now scale on hover.
-Applied proper Tailwind CSS styling to the header and all three sections (form, current weather, and 5-day weather). Added scale on hover effects to relevant elements. The webpage is now partially responsive.
-Updated the webpage styling and made it fully responsive on all screen sizes, including mobile devices. Fixed the extreme heat alert issue that appeared when toggling to Fahrenheit even for temperatures below 40 °C. Removed console error messages. Error messages now display directly on the UI.
-Formatted HTML and JavaScript files for better readability. Added local storage functionality. Recently searched city names are now saved in the dropdown list and persist even after refreshing the webpage.
-Added clear and descriptive comments to improve code readability.
+
+3. Run the Application
+
+Simply open the index.html file in your browser.
+
+Project Structure:
+<pre> ```plaintext Weather-Forecast-Application-using-OpenMeteo-in-Javascript/ │ ├── index.html # Main webpage ├── script.js # Core JavaScript logic ├── src/ │ ├── input.css # Tailwind input file │ └── output.css # Generated Tailwind output file ├── README.md # Project documentation ``` </pre>
+
+Key JavaScript Functions:
+
+Function	Description
+getCoordinates(city)	           : Fetches latitude & longitude for the entered city.
+getWeather(currentValue)	       : Fetches and displays current & 5-day weather data.
+toggleUnits()	                   : Toggles between Celsius and Fahrenheit.
+saveCityToLocalStorage(cityName) : Saves the searched city to local storage.
+updateDropdown()	               : Updates the dropdown list with saved cities.
+showError(sectionId, message)	   : Displays styled error messages in the UI.
+
+APIs Used:
+
+Open-Meteo Geocoding API:
+Converts city names into geographic coordinates.
+https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1
+
+Open-Meteo Forecast API:
+Retrieves weather data (current + 5-day).
+https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,relative_humidity_2m_max,relative_humidity_2m_min,windspeed_10m_max,weathercode&timezone=auto
+
+OpenStreetMap Nominatim API:
+Reverse geocodes coordinates into readable addresses.
+https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json
