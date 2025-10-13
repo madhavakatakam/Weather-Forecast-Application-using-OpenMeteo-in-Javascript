@@ -9,3 +9,4 @@ The toggle button now updates its inner text accordingly.
 Added Geo-Location to fetch location data of user when search by location button is clicked(not fully functional yet). Flow of the project is updated with proper input validation and error handling.
 The Geo-Location feature now works perfectly. When you click the “Use Current Location” button, it gets your latitude and longitude using the Geolocation API and finds your city and country from the OpenStreetMap API.
 Currently, the webpage perfectly fetches current and 5-day weather data and displays it to the user on the webpage in plain text.
+Added CSS Styling to Header section and form elements of the webpage, added borders to help visualize and manage the layout of the webpage.
