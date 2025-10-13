@@ -56,7 +56,7 @@ City name stored in local storage for easy future access.
 
 Setup Instructions:
 1. Clone the Repository
-git clone https://github.com/<your-username>/Weather-Forecast-Application-using-OpenMeteo-in-Javascript.git
+git clone http://github.com/madhavakatakam/Weather-Forecast-Application-using-OpenMeteo-in-Javascript
 cd Weather-Forecast-Application-using-OpenMeteo-in-Javascript
 
 2. Install Tailwind CSS (CLI)
