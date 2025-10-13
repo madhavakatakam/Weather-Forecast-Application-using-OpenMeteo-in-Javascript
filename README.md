@@ -13,4 +13,5 @@ Added CSS Styling to Header section, current weather section and form elements o
 Included input.css and output.css files to build the Tailwind CSS for the webpage. The command to run the project is :
 npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch
 Removed all console statements. Now the weather data is displayed perfectly on the webpage and fixed the bug where paragraphs are stacked everytime the search button is clicked.
-Added CSS styling to Added hover effects to form elements and updated the layout and borders of the form section. Buttons now scale on hover.
+Added CSS styling and hover effects to form elements and updated the layout and borders of the form section. Buttons now scale on hover.
+Applied proper Tailwind CSS styling to the header and all three sections (form, current weather, and 5-day weather). Added hover scale effects to relevant elements. The webpage is now responsive(all sections are not fully responsive).
