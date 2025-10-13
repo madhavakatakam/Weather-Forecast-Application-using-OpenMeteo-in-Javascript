@@ -25,7 +25,7 @@ async function getCoordinates(city) {
         const data = await response.json();
 
         if (!data.results || data.results.length === 0) {
-            alert("City not found. Please check the city name and try again.");
+            showError("currentweather","City not found. Please check the city name and try again.");
             return null;
         }
 
@@ -140,7 +140,7 @@ async function getWeather(currentValue = false) {
     } else {
         const city = document.getElementById("cityInput").value.trim();
         if (!city) {
-            alert("Please enter a valid city name before searching.");
+            showError("currentweather","Please enter a valid city name before searching.");
             return;
         }
 
@@ -202,7 +202,7 @@ async function getWeather(currentValue = false) {
 
         //Extreme Heat Alert
         if (data.current_weather.temperature > 40) {
-            alert("Extreme Heat Alert! Avoid outdoor activities");
+            showError("5-dayweather","Extreme Heat Alert! Avoid outdoor activities");
         }
 
         //5-Day Weather Forecast
