@@ -1,10 +1,13 @@
+//Global celsius variable
 let celsius = true;
 
+//Toggle Units Function to Toggle Between Celsius and Fahrenheit
 function toggleUnits() {
     celsius = !celsius;
     document.getElementById("toggle").textContent = celsius ? "°F" : "°C";
 }
 
+//Display Error Message Function
 function showError(sectionId, message) {
     const section = document.getElementById(sectionId);
     section.innerHTML = `
@@ -14,6 +17,7 @@ function showError(sectionId, message) {
     `;
 }
 
+//Get Co-ordinates function fetches latitude and longitude using city name
 async function getCoordinates(city) {
     const cityURL = `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`;
     try {
@@ -32,6 +36,7 @@ async function getCoordinates(city) {
     }
 }
 
+//Local Storage function saves city name to Local Storage
 function saveCityToLocalStorage(cityName) {
     if (!cityName) return;
     let savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
@@ -43,8 +48,10 @@ function saveCityToLocalStorage(cityName) {
     }
 }
 
+//Update Dropdown Function loads saved city names into dropdown list
 function updateDropdown() {
     const select = document.querySelector("select");
+    //clears existing cities
     select.innerHTML = "";
 
     const savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
@@ -58,12 +65,14 @@ function updateDropdown() {
         return;
     }
 
+    //Default Option
     const defaultOpt = document.createElement("option");
     defaultOpt.textContent = "Select a saved city";
     defaultOpt.disabled = true;
     defaultOpt.selected = true;
     select.appendChild(defaultOpt);
 
+    //Add each saved City
     savedCities.forEach(city => {
         const opt = document.createElement("option");
         opt.value = city;
@@ -71,6 +80,7 @@ function updateDropdown() {
         select.appendChild(opt);
     });
 
+    //Add listener
     select.onchange = async () => {
         const city = select.value;
         if (city && city !== "Select a saved city") {
@@ -80,9 +90,11 @@ function updateDropdown() {
     };
 }
 
+//Get Weather function that fetches and displays current weather and 5-day weather forecast data
 async function getWeather(currentValue = false) {
     let latitude, longitude, cityName, country;
 
+    //Weather Descriptions corresponding to the weather codes
     const weatherDescriptions = {
         0: "Clear sky ☀️", 1: "Mainly clear 🌤️", 2: "Partly cloudy ⛅", 3: "Overcast ☁️",
         45: "Fog 🌫️", 48: "Depositing rime fog 🌫️", 51: "Light drizzle 🌦️", 53: "Moderate drizzle 🌧️",
@@ -95,6 +107,7 @@ async function getWeather(currentValue = false) {
         95: "Thunderstorm ⛈️", 96: "Thunderstorm with slight hail ⛈️🌩️", 99: "Thunderstorm with heavy hail 🌩️🌪️"
     };
 
+    //If using Search By Current Location
     if (currentValue) {
         try {
             const position = await new Promise((resolve, reject) => {
@@ -127,6 +140,7 @@ async function getWeather(currentValue = false) {
         ({ latitude, longitude, cityName, country } = coordinates);
     }
 
+    //Fetches Weather Data
     const weatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,relative_humidity_2m_max,relative_humidity_2m_min,windspeed_10m_max,weathercode&timezone=auto`;
 
     try {
@@ -144,6 +158,7 @@ async function getWeather(currentValue = false) {
         currentdiv.innerHTML = "";
         nextdiv.innerHTML = "";
 
+        //Creating and Displaying Loaction Data on Location box
         const locationBox = document.createElement("p");
         locationBox.classList.add("bg-amber-100", "border", "border-amber-300", "rounded-lg", "p-4", "text-teal-900", "shadow", "transform", "hover:scale-105", "duration-300");
         locationBox.innerHTML = `
@@ -154,6 +169,7 @@ async function getWeather(currentValue = false) {
             <p><strong>Country:</strong> ${country}</p>
         `;
 
+        //Creating and Displaying Current Weather Data on Weather box
         const weatherBox = document.createElement("p");
         weatherBox.classList.add("bg-teal-50", "border", "border-teal-300", "rounded-lg", "p-4", "text-teal-900", "shadow", "transform", "hover:scale-105", "duration-300");
 
@@ -175,10 +191,12 @@ async function getWeather(currentValue = false) {
         currentdiv.appendChild(locationBox);
         currentdiv.appendChild(weatherBox);
 
+        //Extreme Heat Alert
         if (data.current_weather.temperature > 40) {
             alert("Extreme Heat Alert! Avoid outdoor activities");
         }
 
+        //5-Day Weather Forecast
         const days = Math.min(5, data.daily.time.length);
         for (let i = 0; i < days; i++) {
             const desc = weatherDescriptions[data.daily.weathercode[i]] || "Unknown";
@@ -194,6 +212,7 @@ async function getWeather(currentValue = false) {
             nextdiv.appendChild(card);
         }
 
+        //Save Searched City
         if (!currentValue && cityName) saveCityToLocalStorage(cityName);
     } catch (error) {
         showError("currentweather", "Unable to load current weather data. Please check your internet connection.");
@@ -201,4 +220,5 @@ async function getWeather(currentValue = false) {
     }
 }
 
+//Loads Dropdown on Page Load
 document.addEventListener("DOMContentLoaded", updateDropdown);
