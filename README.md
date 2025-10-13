@@ -12,3 +12,4 @@ Currently, the webpage perfectly fetches current and 5-day weather data and disp
 Added CSS Styling to Header section and form elements of the webpage, added borders to help visualize and manage the layout of the webpage.
 Included input.css and output.css files to build the Tailwind CSS for the webpage. The command to run the project is :
 npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch
+Removed all console statements. Now the weather data is displayed perfectly on the webpage and fixed the bug where paragraphs are stacked everytime the search button is clicked.
