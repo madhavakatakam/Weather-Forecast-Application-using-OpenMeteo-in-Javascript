@@ -5,6 +5,16 @@ function toggleUnits() {
     document.getElementById("toggle").textContent = celsius ? "°F" : "°C";
 }
 
+function showError(sectionId, message) {
+    const section = document.getElementById(sectionId);
+    section.innerHTML = `
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg w-full text-center">
+            ${message}
+        </div>
+    `;
+}
+
+
 async function getCoordinates(city) {
     const cityURL = `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`;
 
@@ -13,7 +23,7 @@ async function getCoordinates(city) {
         const data = await response.json();
 
         if (!data.results || data.results.length === 0) {
-            alert("City not found!");
+            alert("City not found. Please check the city name and try again.");
             return null;
         }
 
@@ -24,8 +34,7 @@ async function getCoordinates(city) {
 
         return { cityName, country, latitude, longitude };
     } catch (error) {
-        alert("Incorrect City Name!");
-        console.log("Error fetching coordinates:", error);
+        showError("currentweather", "Unable to retrieve city details. Please check your internet connection and try again.");
     }
 }
 
@@ -81,14 +90,14 @@ async function getWeather(currentValue = false) {
             country = data.address.country || "Unknown country";
 
         } catch (error) {
-            console.log("Error fetching location data:", error);
+            showError("currentweather", "Cannot access your location. Please check your internet connection, enable location access in your browser or enter a city name manually.");
             return;
         }
     } else {
         const city = document.getElementById("cityInput").value.trim();
 
         if (!city) {
-            alert("Empty field not accepted!");
+            alert("Please enter a valid city name before searching.");
             return;
         }
 
@@ -104,8 +113,9 @@ async function getWeather(currentValue = false) {
         const response = await fetch(weatherURL);
         const data = await response.json();
 
-        if (!data.current_weather) {
-            alert("Weather Data Not Available!");
+        if (!data || !data.current_weather) {
+            showError("currentweather", "Current Weather data is not available for this location. Please try a different city");
+            showError("5-dayweather", "5-Day Forecast is not available for this location.");
             return;
         }
 
@@ -172,7 +182,7 @@ async function getWeather(currentValue = false) {
         currentdiv.appendChild(currentp2);
 
         if (data.current_weather.temperature > 40) {
-            alert("Extreme Heat Alert!");
+            alert("Extreme Heat Alert! Avoid outdoor activities");
         }
 
         const days = Math.min(5, data.daily.time.length);
@@ -206,7 +216,7 @@ async function getWeather(currentValue = false) {
         console.log("\n");
         return;
     } catch (error) {
-        console.log("Error fetching weather:", error);
+        showError("currentweather", "Unable to load current weather data. Please check your internet connection and try again.");
+        showError("5-dayweather", "Unable to load 5-day forecast data.");
     }
 }
-
