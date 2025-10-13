@@ -17,3 +17,4 @@ Added CSS styling and hover effects to form elements and updated the layout and 
 Applied proper Tailwind CSS styling to the header and all three sections (form, current weather, and 5-day weather). Added hover scale effects to relevant elements. The webpage is now responsive(all sections are not fully responsive).
 Updated the webpage styling and made it fully responsive on all screen sizes, including mobile devices. Fixed the extreme heat alert issue that appeared when toggling to Fahrenheit even for temperatures below 40 °C. Removed console error messages. Error messages now display directly on the UI.
 Formatted HTML and JavaScript files for better readability. Added local storage functionality. Recently searched city names are now saved in the dropdown list and persist even after refreshing the webpage.
+Added clear and descriptive comments to improve code readability.
