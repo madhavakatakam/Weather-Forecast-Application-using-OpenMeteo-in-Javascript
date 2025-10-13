@@ -10,7 +10,7 @@
     <!--Title Tag-->
     <title>Weather App</title>
     <!--Link to output.css-->
-    <link href="./output.css" rel="stylesheet">
+    <link href="./src/output.css" rel="stylesheet">
 </head>
 
 <!--Body Tag-->
@@ -68,7 +68,8 @@
 
                     <!--Dropdown List that contains all the previously searched cities-->
                     <select
-                        class="w-full border border-amber-300 rounded-xl bg-amber-100 text-emerald-900 px-3 py-2 transform hover:scale-105 duration-300 focus:outline-none focus:border-amber-500 transition">
+                        id="cityDropdown"
+                        class="hidden w-full border border-amber-300 rounded-xl bg-amber-100 text-emerald-900 px-3 py-2 transform hover:scale-105 duration-300 focus:outline-none focus:border-amber-500 transition">
                     </select>
                 </form>
             </section>
@@ -109,3 +110,4 @@
     </footer>
 </body>
 </html>
+
