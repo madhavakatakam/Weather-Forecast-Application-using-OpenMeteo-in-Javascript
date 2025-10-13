@@ -21,7 +21,7 @@ Easily switches temperature units between °C and °F.
 Toggle button updates its label dynamically.
 
 extreme Heat Alert:
-Displays a JS alert message when current temperature exceeds 40 °C (Celsius only).
+Displays a message on UI when current temperature exceeds 40 °C (Celsius only).
 
 Persistent Recent Searches:
 Recently searched cities are saved in localStorage.
