@@ -1,27 +1,38 @@
 <!DOCTYPE html>
+<!--HTML Tag-->
 <html lang="en">
 
+<!--Head Tag-->
 <head>
+    <!--Meta Tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Title Tag-->
     <title>Weather App</title>
-    <link href="./src/output.css" rel="stylesheet">
+    <!--Link to output.css-->
+    <link href="./output.css" rel="stylesheet">
 </head>
 
+<!--Body Tag-->
 <body class="bg-cyan-100">
+    <!--Semantic Header Tag-->
     <header class="flex flex-col items-center justify-center p-4 bg-cyan-300 border-b border-cyan-500">
         <h1 class="text-3xl font-bold text-teal-800 text-center">
             Weather Forecast App Using OpenMeteo API
         </h1>
     </header>
 
+    <!--Semantic Main Tag-->
     <main class="flex flex-col gap-4 p-4">
+        <!--Container that contains Search section and current weather section-->
         <div class="flex flex-wrap justify-center items-start gap-5 p-3">
 
+            <!--Form Section-->
             <section class="flex flex-col border border-cyan-500 p-4 space-y-4 w-[45%] min-w-[320px] bg-cyan-200 rounded-lg shadow-md">
                 <h2 class="text-2xl text-sky-900 font-semibold text-center">Enter City Name:</h2>
 
                 <form onsubmit="getWeather(); return false;" class="flex flex-col gap-4">
+                    <!--City Name Input Field and Toggle button-->
                     <fieldset class="flex flex-wrap justify-center items-center gap-3 w-full">
                         <input
                             id="cityInput"
@@ -38,6 +49,7 @@
                         </button>
                     </fieldset>
 
+                    <!--Search Button-->
                     <button
                         type="submit"
                         class="rounded-xl bg-teal-600 hover:bg-teal-700 transform hover:scale-105 duration-300 text-amber-50 font-medium px-4 py-2 transition">
@@ -46,6 +58,7 @@
 
                     <h2 class="text-lg text-teal-800 font-medium text-center">Or</h2>
 
+                    <!--Detect using Current Location Button-->
                     <button
                         type="button"
                         onclick="getWeather(true)"
@@ -53,12 +66,14 @@
                         Use Current Location
                     </button>
 
+                    <!--Dropdown List that contains all the previously searched cities-->
                     <select
                         class="w-full border border-amber-300 rounded-xl bg-amber-100 text-emerald-900 px-3 py-2 transform hover:scale-105 duration-300 focus:outline-none focus:border-amber-500 transition">
                     </select>
                 </form>
             </section>
 
+            <!--Current Weather Section-->
             <section
                 id="currentweatherforecast"
                 class="flex flex-col items-center justify-center border border-cyan-500 rounded-lg bg-cyan-200 p-4 shadow-md w-[45%] min-w-[320px]">
@@ -70,6 +85,7 @@
             </section>
         </div>
 
+        <!--5-Day Weather Forecast Section-->
         <section
             id="5-dayweatherforecast"
             class="flex flex-col items-center justify-center border border-cyan-500 bg-cyan-100 rounded-lg shadow-md gap-4 p-4">
@@ -81,8 +97,10 @@
         </section>
     </main>
 
+    <!--Script Tag-->
     <script src="script.js"></script>
 
+    <!--Semantic Footer Section-->
     <footer class="text-center text-sm text-gray-600 mt-6">
         Data provided by
         <a href="https://open-meteo.com/" target="_blank" class="text-blue-600 underline">Open-Meteo</a>
