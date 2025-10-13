@@ -50,20 +50,20 @@ function saveCityToLocalStorage(cityName) {
 
 //Update Dropdown Function loads saved city names into dropdown list
 function updateDropdown() {
-    const select = document.querySelector("select");
+    const select = document.getElementById("cityDropdown");
+    const savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
+
     //clears existing cities
     select.innerHTML = "";
 
-    const savedCities = JSON.parse(localStorage.getItem("savedCities")) || [];
-
+    // Hide dropdown if no saved cities
     if (savedCities.length === 0) {
-        const opt = document.createElement("option");
-        opt.textContent = "No recent cities";
-        opt.disabled = true;
-        opt.selected = true;
-        select.appendChild(opt);
+        select.classList.add("hidden"); // hide dropdown
         return;
     }
+
+    //Show dropdown if saved cities exist
+    select.classList.remove("hidden");
 
     //Default Option
     const defaultOpt = document.createElement("option");
@@ -88,6 +88,15 @@ function updateDropdown() {
             await getWeather(false);
         }
     };
+}
+
+//Clear Saved Cities Function - hides dropdown again
+function clearSavedCities() {
+    if (confirm("Are you sure you want to clear all saved cities?")) {
+        localStorage.removeItem("savedCities");
+        document.getElementById("cityDropdown").classList.add("hidden"); // hide again
+        updateDropdown();
+    }
 }
 
 //Get Weather function that fetches and displays current weather and 5-day weather forecast data
