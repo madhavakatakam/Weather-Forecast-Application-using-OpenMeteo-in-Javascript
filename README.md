@@ -75,8 +75,10 @@ Weather-Forecast-Application-using-OpenMeteo-in-Javascript/
 │
 ├── index.html          # Main webpage
 ├── script.js           # Core JavaScript logic
-├── input.css           # Tailwind input file
-├── output.css          # Generated Tailwind output file
+├── src/                # Source files folder
+│   ├── input.css       # Tailwind input file
+│   └── output.css      # Generated Tailwind output file
+│
 ├── package.json        # Project dependencies and scripts
 ├── README.md           # Project documentation
 ```
